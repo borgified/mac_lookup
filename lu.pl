@@ -31,3 +31,26 @@ while(defined(my $ip=<INPUT>)){
 		print "$ip seems down\n";
 	}
 }
+
+
+sub ip2mac {
+	my $ip = shift @_;
+	my $nmap_output = `nmap -sP $ip`;
+	if($nmap_output=~/Host is up/){
+		my $get_mac = `nmap -O $ip`;
+		$get_mac=~/MAC Address: (\w\w:\w\w:\w\w:\w\w:\w\w:\w\w)/;
+		my $mac_address = $1;
+		if(defined($mac_address)){
+			return $mac_address;
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
